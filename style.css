@@ -1,0 +1,97 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+  display: flex;
+  background: linear-gradient(135deg, #00c6ff, #00ff9c);
+  padding: 40px 20px;
+  color: white;
+  height: 100dvh;
+  border-bottom-left-radius: 100px;
+  border-bottom-right-radius: 100px;
+  border-top-left-radius: 100px;
+  border-top-right-radius:100px ;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row; /* Default: text left, image right */
+  max-width: 1200px;
+  margin: auto;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.text-section {
+  flex: 1;
+  min-width: 300px;
+}
+
+.image {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 20px;
+}
+
+/* Text Styles */
+.app-name {
+  font-size: 2rem;
+  font-display:fallback;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.main-heading {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.sub-heading {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.description {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+.cta-button {
+  text-decoration: none;
+  background-color: #0f0;
+  color: white;
+  font-weight: bold;
+  padding: 12px 24px;
+  border-radius: 8px;
+  transition: margin-right 2s ease-in-out;
+}
+
+.cta-button:hover {
+  background-color: rgb(166, 236, 166);
+}
+
+/* 📱 Mobile view: Image top, text bottom */
+@media (max-width: 768px) {
+  .hero-content {
+    flex-direction: column-reverse; /* Text below, image above */
+    text-align: center;
+  }
+}
