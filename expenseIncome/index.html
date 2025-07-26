@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add Transaction</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+ 
+
+  <!-- <div class="back-arrow" onclick="history.back()">←</div> -->
+   <div class="back-arrow" onclick="window.location.href = 'previous.html'">←</div><!--Previos page Link-->
+
+
+  <h2>Add Transaction</h2>
+
+  <div class="container">
+    <div class="content">
+      <div class="amount-label">How much?</div>
+      <div class="amount" id="amountDisplay">₹ 0.00</div>
+
+      <div class="form-card">
+  <!-- Icon Picker -->
+  <div class="icon-picker">
+    <div id="iconDisplay" class="icon-placeholder">🖼️</div>
+  </div>
+
+  <!-- Category -->
+  
+<div class="category-autocomplete">
+  <input type="text" id="categoryInput" placeholder="Enter Category" oninput="showSuggestions()" autocomplete="off" />
+  <ul id="suggestionsList" class="suggestions"></ul>
+</div>
+
+
+  <!-- Description -->
+ 
+<select id="description" disabled>
+  <option disabled selected>Description</option>
+</select>
+<!-- Amount Input -->
+<div class="amount-input-wrapper">
+  <label for="amountInput">Amount</label> 
+  <div class="amount-input">
+    <span class="currency-symbol">₹</span>
+    <!-- <input type="number" id="amountInput" placeholder="0.00" min="0" /> -->
+     <input type="number" id="amountInput" placeholder="0.00" min="0" disabled />
+
+  </div>
+</div>
+
+  <!-- Date -->
+  
+<div class="date-input-wrapper">
+  <label for="date">Date</label>
+  <div class="date-icon-input">
+    <input type="date" id="date" />
+    <span class="calendar-icon">📅</span>
+  </div>
+</div>
+
+  <div class="type-buttons">
+    <button class="income">Income</button>
+    <button class="expense">Expense</button>
+  </div>
+
+<div id="summaryMessage" style="margin-top: 10px; font-size: 0.9em; color: #555;"></div>
+
+
+  <button class="continue-btn">Continue</button>
+
+  </div>
+ 
+
+  <script src="script.js"></script>
+</body>
+
+</html>
