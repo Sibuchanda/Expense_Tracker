@@ -1,204 +1,214 @@
-const sampleTransactions = [
-  {
-    title: "Shopping",
-    desc: "Buy some grocery",
-    time: "10:00 AM",
-    date: "2025-07-24",
-    amount: -5120,
-    category: "grocery",
-  },
-  {
-    title: "Food",
-    desc: "Arabian Hut",
-    time: "07:30 PM",
-    date: "2025-07-23",
-    amount: -532,
-    category: "food",
-  },
-  {
-    title: "Salary",
-    desc: "Salary for August",
-    time: "04:30 PM",
-    date: "2025-07-22",
-    amount: 50000,
-    category: "salary",
-  },
-  {
-    title: "Subscription",
-    desc: "Disney+ Annual..",
-    time: "03:30 PM",
-    date: "2025-07-20",
-    amount: -1180,
-    category: "subscription",
-  },
-  {
-    title: "Fuel",
-    desc: "Kozhikode",
-    time: "07:30 PM",
-    date: "2025-07-21",
-    amount: -1032,
-    category: "fuel",
-  },
-  {
-    title: "Cinema",
-    desc: "Lulu Mall",
-    time: "07:30 PM",
-    date: "2025-07-19",
-    amount: -532,
-    category: "movie",
-  },
-];
+ class TransactionManager {
+      constructor() {
+        this.allTransactions = [];
+        this.filteredTransactions = [];
+        this.init();
+      }
 
-// Store sample data in localStorage (if not already there)
-if (!localStorage.getItem("transactions")) {
-  localStorage.setItem("transactions", JSON.stringify(sampleTransactions));
-}
+      init() {
+        this.loadTransactions();
+        this.populateCategoryFilter();
+        this.setupEventListeners();
+        this.updateStats();
+        this.renderTransactions();
+      }
 
-// Get DOM elements
-const transactionsContainer = document.getElementById("transactions");
-const timeFilter = document.getElementById("timeFilter");
-const categoryFilter = document.getElementById("categoryFilter");
-const sortBy = document.getElementById("sortBy");
+      loadTransactions() {
+        const incomeData = JSON.parse(localStorage.getItem("incomeData") || "[]");
+        const expenseData = JSON.parse(localStorage.getItem("expenseData") || "[]");
+        
+        // Combine and format all transactions
+        this.allTransactions = [
+          ...incomeData.map(item => ({
+            ...item,
+            category: item.source,
+            type: 'Income'
+          })),
+          ...expenseData.map(item => ({
+            ...item,
+            type: 'Expense'
+          }))
+        ].sort((a, b) => b.timestamp - a.timestamp);
 
-function getTransactionsFromStorage() {
-  return JSON.parse(localStorage.getItem("transactions")) || [];
-}
+        this.filteredTransactions = [...this.allTransactions];
+      }
 
-function filterByTimeRange(transactions, timeRange) {
-  const today = new Date();
-  const todayStr = today.toISOString().split("T")[0];
+      populateCategoryFilter() {
+        const categories = new Set();
+        this.allTransactions.forEach(transaction => {
+          if (transaction.category) {
+            categories.add(transaction.category);
+          }
+        });
 
-  switch (timeRange) {
-    case "today":
-      return transactions.filter((t) => t.date === todayStr);
+        const categoryFilter = document.getElementById('categoryFilter');
+        categoryFilter.innerHTML = '<option value="all">All Categories</option>';
+        
+        Array.from(categories).sort().forEach(category => {
+          const option = document.createElement('option');
+          option.value = category;
+          option.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+          categoryFilter.appendChild(option);
+        });
+      }
 
-    case "yesterday":
-      const yesterday = new Date(today);
-      yesterday.setDate(yesterday.getDate() - 1);
-      const yesterdayStr = yesterday.toISOString().split("T")[0];
-      return transactions.filter((t) => t.date === yesterdayStr);
+      setupEventListeners() {
+        const filters = ['timeFilter', 'typeFilter', 'categoryFilter', 'sortBy'];
+        filters.forEach(filterId => {
+          document.getElementById(filterId).addEventListener('change', () => {
+            this.applyFilters();
+          });
+        });
 
-    case "last7days":
-      const week = new Date(today);
-      week.setDate(week.getDate() - 7);
-      return transactions.filter((t) => new Date(t.date) >= week);
+        document.getElementById('clearFilters').addEventListener('click', () => {
+          this.clearAllFilters();
+        });
+      }
 
-    case "last30days":
-      const month = new Date(today);
-      month.setDate(month.getDate() - 30);
-      return transactions.filter((t) => new Date(t.date) >= month);
+      applyFilters() {
+        let filtered = [...this.allTransactions];
 
-    case "thisMonth":
-      const currentMonth = today.getMonth();
-      const currentYear = today.getFullYear();
-      return transactions.filter((t) => {
-        const transDate = new Date(t.date);
-        return (
-          transDate.getMonth() === currentMonth &&
-          transDate.getFullYear() === currentYear
-        );
-      });
+        // Time filter
+        const timeFilter = document.getElementById('timeFilter').value;
+        if (timeFilter !== 'all') {
+          filtered = this.filterByTime(filtered, timeFilter);
+        }
 
-    default:
-      return transactions;
-  }
-}
+        // Type filter
+        const typeFilter = document.getElementById('typeFilter').value;
+        if (typeFilter !== 'all') {
+          filtered = filtered.filter(t => t.type === typeFilter);
+        }
 
-function sortTransactions(transactions, sortOption) {
-  const sorted = [...transactions];
+        // Category filter
+        const categoryFilter = document.getElementById('categoryFilter').value;
+        if (categoryFilter !== 'all') {
+          filtered = filtered.filter(t => t.category === categoryFilter);
+        }
 
-  switch (sortOption) {
-    case "date":
-      return sorted.sort((a, b) => new Date(b.date) - new Date(a.date));
+        // Sort
+        const sortBy = document.getElementById('sortBy').value;
+        filtered = this.sortTransactions(filtered, sortBy);
 
-    case "dateOld":
-      return sorted.sort((a, b) => new Date(a.date) - new Date(b.date));
+        this.filteredTransactions = filtered;
+        this.updateStats();
+        this.renderTransactions();
+      }
 
-    case "amountHigh":
-      return sorted.sort((a, b) => Math.abs(b.amount) - Math.abs(a.amount));
+      filterByTime(transactions, timeFilter) {
+        const now = new Date();
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        
+        return transactions.filter(transaction => {
+          const transactionDate = new Date(transaction.date);
+          const transactionDay = new Date(transactionDate.getFullYear(), transactionDate.getMonth(), transactionDate.getDate());
+          
+          switch (timeFilter) {
+            case 'today':
+              return transactionDay.getTime() === today.getTime();
+            case 'yesterday':
+              const yesterday = new Date(today);
+              yesterday.setDate(yesterday.getDate() - 1);
+              return transactionDay.getTime() === yesterday.getTime();
+            case 'last7days':
+              const sevenDaysAgo = new Date(today);
+              sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+              return transactionDay >= sevenDaysAgo;
+            case 'last30days':
+              const thirtyDaysAgo = new Date(today);
+              thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+              return transactionDay >= thirtyDaysAgo;
+            case 'thisMonth':
+              return transactionDate.getMonth() === now.getMonth() && 
+                     transactionDate.getFullYear() === now.getFullYear();
+            default:
+              return true;
+          }
+        });
+      }
 
-    case "amountLow":
-      return sorted.sort((a, b) => Math.abs(a.amount) - Math.abs(b.amount));
+      sortTransactions(transactions, sortBy) {
+        return transactions.sort((a, b) => {
+          switch (sortBy) {
+            case 'date':
+              return b.timestamp - a.timestamp;
+            case 'dateOld':
+              return a.timestamp - b.timestamp;
+            case 'amountHigh':
+              return b.amount - a.amount;
+            case 'amountLow':
+              return a.amount - b.amount;
+            case 'category':
+              return (a.category || '').localeCompare(b.category || '');
+            default:
+              return b.timestamp - a.timestamp;
+          }
+        });
+      }
 
-    case "category":
-      return sorted.sort((a, b) => a.category.localeCompare(b.category));
+      updateStats() {
+        document.getElementById('resultsCount').textContent = 
+          `Showing ${this.filteredTransactions.length} of ${this.allTransactions.length} transactions`;
+      }
 
-    case "title":
-      return sorted.sort((a, b) => a.title.localeCompare(b.title));
+      renderTransactions() {
+        const container = document.getElementById('transactions');
+        
+        if (this.filteredTransactions.length === 0) {
+          container.innerHTML = `
+            <div class="no-transactions">
+              <i class="fas fa-inbox"></i>
+              <h3>No transactions found</h3>
+              <p>Try adjusting your filters or add some transactions first.</p>
+            </div>
+          `;
+          return;
+        }
 
-    default:
-      return sorted;
-  }
-}
-
-function renderTransactions() {
-  const selectedCategory = categoryFilter.value;
-  const selectedTime = timeFilter.value;
-  const selectedSort = sortBy.value;
-
-  let filtered = getTransactionsFromStorage();
-
-  // Apply category filter
-  if (selectedCategory !== "all") {
-    filtered = filtered.filter((t) => t.category === selectedCategory);
-  }
-
-  // Apply time filter
-  filtered = filterByTimeRange(filtered, selectedTime);
-
-  // Apply sorting
-  filtered = sortTransactions(filtered, selectedSort);
-
-  // Clear container
-  transactionsContainer.innerHTML = "";
-
-  if (filtered.length === 0) {
-    transactionsContainer.innerHTML = `
-          <div class="no-transactions">
-            <div style="font-size: 3rem; margin-bottom: 10px; opacity: 0.5;">📊</div>
-            <h3>No transactions found</h3>
-            <p>Try adjusting your filters to see more results.</p>
+        container.innerHTML = this.filteredTransactions.map(transaction => `
+          <div class="transaction ${transaction.type.toLowerCase()}">
+            <div class="transaction-header">
+              <div class="transaction-info">
+                <h3>${transaction.category || 'Uncategorized'}</h3>
+              </div>
+            </div>
+            <div class="transaction-meta">
+              <div class="meta-item">
+                <i class="fas fa-${transaction.type === 'Income' ? 'plus' : 'minus'}"></i>
+                <span>${transaction.type}</span>
+              </div>
+              <div class="meta-item">
+                <i class="fas fa-credit-card"></i>
+                <span>${transaction.mode || 'N/A'}</span>
+              </div>
+              <div class="meta-item">
+                <i class="fas fa-calendar"></i>
+                <span>${transaction.date}</span>
+              </div>
+            </div>
+            <div class="transaction-footer">
+              <div class="amount ${transaction.type === 'Income' ? 'positive' : 'negative'}">
+                <i class="fas fa-rupee-sign"></i>
+                ${transaction.amount.toFixed(2)}
+              </div>
+              <div class="category-tag">
+                ${transaction.category || 'General'}
+              </div>
+            </div>
           </div>
-        `;
-    return;
-  }
+        `).join('');
+      }
 
-  filtered.forEach((t) => {
-    const div = document.createElement("div");
-    div.className = "transaction";
+      clearAllFilters() {
+        document.getElementById('timeFilter').value = 'all';
+        document.getElementById('typeFilter').value = 'all';
+        document.getElementById('categoryFilter').value = 'all';
+        document.getElementById('sortBy').value = 'date';
+        this.applyFilters();
+      }
+    }
 
-    const formattedDate = new Date(t.date).toLocaleDateString("en-IN", {
-      weekday: "short",
-      year: "numeric",
-      month: "short",
-      day: "numeric",
+    // Initialize the transaction manager when the page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      new TransactionManager();
     });
-
-    div.innerHTML = `
-          <div class="transaction-header">
-            <div>
-              <h3>${t.title}</h3>
-              <span class="category-tag">${t.category}</span>
-            </div>
-            <div class="amount ${t.amount >= 0 ? "positive" : "negative"}">
-              ${t.amount >= 0 ? "+" : ""}₹${Math.abs(t.amount).toLocaleString()}
-            </div>
-          </div>
-          <p>${t.desc}</p>
-          <div class="transaction-footer">
-            <div class="date-time">
-              ${formattedDate} • ${t.time}
-            </div>
-          </div>
-        `;
-    transactionsContainer.appendChild(div);
-  });
-}
-
-// Event Listeners
-timeFilter.addEventListener("change", renderTransactions);
-categoryFilter.addEventListener("change", renderTransactions);
-sortBy.addEventListener("change", renderTransactions);
-
-// Initial Render
-renderTransactions();

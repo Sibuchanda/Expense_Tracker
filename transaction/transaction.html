@@ -4,52 +4,68 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Transactions</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="transaction.css">
 </head>
 <body>
   <div class="container">
     <header>
-      <a href="../index.html">
-        <button class="back-btn">&#8592;</button>
+      <a href="../index.html" class="back-btn">
+        <i class="fas fa-arrow-left"></i>
       </a>
-      <h1>Transactions</h1>
+      <h1> Transaction History</h1>
     </header>
 
-    <!-- Filter Dropdowns -->
-    <div class="dropdowns">
-      <select id="timeFilter">
-        <option value="all">All Time</option>
-        <option value="today">Today</option>
-        <option value="yesterday">Yesterday</option>
-        <option value="last7days">Last 7 Days</option>
-        <option value="last30days">Last 30 Days</option>
-        <option value="thisMonth">This Month</option>
-      </select>
-      <select id="categoryFilter">
-        <option value="all">All Categories</option>
-        <option value="food">Food</option>
-        <option value="grocery">Grocery</option>
-        <option value="movie">Movie</option>
-        <option value="fuel">Fuel</option>
-        <option value="subscription">Subscription</option>
-        <option value="salary">Salary</option>
-      </select>
-      <select id="sortBy">
-        <option value="date">Newest First</option>
-        <option value="dateOld">Oldest First</option>
-        <option value="amountHigh">Amount: High to Low</option>
-        <option value="amountLow">Amount: Low to High</option>
-        <option value="category">Category</option>
-        <option value="title">Title</option>
-      </select>
+
+
+    <!-- Filter Section -->
+    <div class="filter-section">
+      <div class="filter-header">
+        <i class="fas fa-filter"></i>
+        <h2>Filter Transactions</h2>
+      </div>
+      <div class="dropdowns">
+        <select id="timeFilter">
+          <option value="all">All Time</option>
+          <option value="today">Today</option>
+          <option value="yesterday">Yesterday</option>
+          <option value="last7days">Last 7 Days</option>
+          <option value="last30days">Last 30 Days</option>
+          <option value="thisMonth">This Month</option>
+        </select>
+        <select id="typeFilter">
+          <option value="all">All Types</option>
+          <option value="Income">Income Only</option>
+          <option value="Expense">Expenses Only</option>
+        </select>
+        <select id="categoryFilter">
+          <option value="all">All Categories</option>
+        </select>
+        <select id="sortBy">
+          <option value="date">Newest First</option>
+          <option value="dateOld">Oldest First</option>
+          <option value="amountHigh">Amount: High to Low</option>
+          <option value="amountLow">Amount: Low to High</option>
+          <option value="category">Category A-Z</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Results Header -->
+    <div class="results-header">
+      <div class="results-count" id="resultsCount">Showing 0 transactions</div>
+      <button class="clear-filters" id="clearFilters">
+         Clear Filters
+      </button>
     </div>
 
     <!-- Transactions Container -->
     <div id="transactions" class="transactions">
-      <!-- Transactions will be rendered here -->
+      <div class="loading">
+        <div class="spinner"></div>
+      </div>
     </div>
   </div>
-
   <script src="transaction.js"></script>
 </body>
 </html>

@@ -22,13 +22,13 @@
         <button
           class="control-btn active"
           onclick="showChart('expenses', this)"
-        >
+        data-chart-type="expenses">
           Expenses
         </button>
-        <button class="control-btn" onclick="showChart('income', this)">
+        <button class="control-btn" onclick="showChart('income', this)" data-chart-type="income">
           Income
         </button>
-        <button class="control-btn" onclick="showChart('trends', this)">
+        <button class="control-btn" onclick="showChart('trends', this)" data-chart-type="trends">
           Trends
         </button>
       </div>
@@ -38,6 +38,7 @@
         </div>
       </div>
     </div>
-    <script src="../dashboard/dashboard.js"></script>
+    <!-- <script src="../dashboard/dashboard.js"></script> -->
+     <script src="analytics.js"></script>
   </body>
 </html>

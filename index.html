@@ -3,29 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>ExpenseMate  - Take Control of Your Finances</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    
-<section class="container">
-  <div class="content">
-    <div class="text-section">
-      <h1 class="app-name">Smart Expense Tracker</h1>
-      <h2 class="main-heading">Take Control of Your Monthly Expenses.</h2>
-      <p class="sub-heading">Effortlessly Track & Analyze Your Expenses.</p>
-      <p class="description">
-        Your simple web app to easily manage daily spending, understand your habits,
-        and plan for a better financial future.
-      </p>
-      <a href="./transaction/transaction.html" class="cta-button">Get Started Now</a>
-    </div>
+    <header class="navbar">
+        <div class="container">
+            <h1 class="logo">ExpenseMate </h1>
+            </div>
+    </header>
 
-    <div class="image">
-      <img src="monthly-expenses-planning-checklist-receipts-wallet-how-to-stick-to-a-budget-ss-featured.jpg" alt="Expense Image" />
-    </div>
-  </div>
-</section>
+    <section class="hero-section" id="home">
+        <div class="container">
+            <h2 class="animate-on-scroll fade-in-up">Take Control of Your Monthly Expenses.</h2>
+            <h3 class="animate-on-scroll fade-in-up delay-1">Effortlessly Track & Analyze Your Expenses.</h3>
+            <p class="animate-on-scroll fade-in-up delay-2">Your simple web app to easily manage daily spending, understand your habits, and plan for a better financial future.</p>
+            <button id="getStartedBtn" class="btn btn-accent large-btn animate-on-scroll fade-in-up delay-3" onclick="getUserInfo()">Get Started Now</button></button>
+        </div>
+    </section>
 
+    <section id="features" class="features-section">
+        <div class="container">
+            <h2 class="animate-on-scroll fade-in-up">Why ExpenseMate ?</h2>
+            <div class="feature-grid">
+                <div class="feature-card animate-on-scroll fade-in-up delay-1">
+                    <i class="fas fa-plus-circle icon"></i>
+                    <h3>Add & Categorize</h3>
+                    <p>Easily log daily expenses with custom categories like Food, Travel, and more.</p>
+                </div>
+                <div class="feature-card animate-on-scroll fade-in-up delay-2">
+                    <i class="fas fa-chart-pie icon"></i>
+                    <h3>Insightful Summaries</h3>
+                    <p>See your total spending and how much you've spent in each category instantly.</p>
+                </div>
+                <div class="feature-card animate-on-scroll fade-in-up delay-3">
+                    <i class="fas fa-bell icon"></i>
+                    <h3>Monthly Reminders</h3>
+                    <p>Get notified at month-end to review your expenses and stay on track.</p>
+                </div>
+                <div class="feature-card animate-on-scroll fade-in-up delay-4">
+                    <i class="fas fa-download icon"></i>
+                    <h3>Export Reports</h3>
+                    <p>Download your full expense data as PDF or Excel for detailed record-keeping.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="faq-section">
+        <div class="container">
+            <h2 class="animate-on-scroll fade-in-up">Frequently Asked Questions for Students</h2>
+            <div class="faq-accordion">
+                <div class="faq-item animate-on-scroll fade-in-up delay-1">
+                    <button class="accordion-header">
+                        How can this app help me to manage my budget?
+                        <i class="fas fa-chevron-down accordion-icon"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>Our app allows you to categorize every expense, from tuition fees to your daily chai. By seeing a clear breakdown of where your money goes, you can easily identify areas to save and stick to your budget for books, food, and social activities.</p>
+                    </div>
+                </div>
+                <div class="faq-item animate-on-scroll fade-in-up delay-2">
+                    <button class="accordion-header">
+                        Is my financial data secure and private?
+                        <i class="fas fa-chevron-down accordion-icon"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>Absolutely, Your expense data is saved locally in your browser's storage, meaning it never leaves your computer. We don't collect, store, or share any of your personal financial information on our servers, ensuring complete privacy.</p>
+                    </div>
+                </div>
+                <div class="faq-item animate-on-scroll fade-in-up delay-3">
+                    <button class="accordion-header">
+                        Can I track expenses for different projects or groups?
+                        <i class="fas fa-chevron-down accordion-icon"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>While the current version focuses on personal tracking, you can use specific categories (e.g., "Project A Expenses," "Group Study Meals") to indirectly track different spending streams. Future updates may include dedicated multi-project features!</p>
+                    </div>
+                </div>
+                <div class="faq-item animate-on-scroll fade-in-up delay-4">
+                    <button class="accordion-header">
+                        What if I accidentally close my browser? Will my data be lost?
+                        <i class="fas fa-chevron-down accordion-icon"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>No worries! Your data is saved automatically in your browser's local storage. This means even if you close your browser or turn off your computer, your expenses will be right there when you open the app again.</p>
+                    </div>
+                </div>
+                <div class="faq-item animate-on-scroll fade-in-up delay-5">
+                    <button class="accordion-header">
+                        How can I use the export feature for academic or personal records?
+                        <i class="fas fa-chevron-down accordion-icon"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>The export feature lets you download your full expense history as a PDF or Excel file. This is perfect for personal budgeting reviews, sharing with parents (if they support your studies), or even for simple financial analysis projects!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section about">
+                    <h3>ExpenseMate</h3>
+                    <p>Empowering you to make smarter financial decisions. Track, analyze, and manage your expenses with ease.</p>
+                </div>
+                <div class="footer-section links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#faq">FAQs</a></li>
+                        <li><a href="#home">Go to Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section contact">
+                    <h3>Connect With Us</h3>
+                    <p>Have questions? Reach out via our social channels:</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+               <p> &copy; <span id="year"></span> ExpenseMate. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="main.js"></script>
+    <script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
 </body>
 </html>
