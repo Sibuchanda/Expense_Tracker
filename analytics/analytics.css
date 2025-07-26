@@ -1,0 +1,172 @@
+:root {
+    --background-color-light: #F8F9FA;
+    --background-color-dark: #343A40;
+    --card-background: #FFFFFF;
+    --hover-effect-color: #E9ECEF;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: var(--background-color-light);
+    color: #212529;
+    line-height: 1.6;
+}
+
+.header-title {
+    margin: 0 auto;
+    text-align: center;
+}
+
+#back-btn {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #4A90E2;
+    color: #F8F9FA;
+    border: none;
+    padding: 12px 28px;
+    font-size: 1rem;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+#back-btn:hover {
+    background-color: #387BCB;
+    color: #FFFFFF;
+    transform: translateY(-55%);
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #DEE2E6;
+    position: relative;
+    flex-wrap: wrap;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    color: #4A90E2;
+    margin: 0;
+}
+
+.page-subtitle {
+    font-size: 1.1rem;
+    color: #6C757D;
+    margin-top: 5px;
+}
+
+/*---- Graph Controls ----- */
+.graph-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.control-btn {
+    padding: 12px 25px;
+    border: 1px solid #4A90E2;
+    border-radius: 30px;
+    background-color: transparent;
+    color: #4A90E2;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.control-btn:hover {
+    background-color: #4A90E2;
+    color: var(--background-color-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.control-btn.active {
+    background-color: #4A90E2;
+    color: var(--background-color-light);
+    border-color: #4A90E2;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* ------- Chart Container----- */
+.chart-container {
+    background-color: var(--card-background);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    margin: 0 auto;
+    max-width: 900px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.chart-container:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.chart-wrapper {
+    position: relative;
+    height: 400px;
+    width: 100%;
+}
+
+canvas {
+    max-width: 100%;
+    height: 100%;
+}
+
+/* ----------Responsive Design ------ */
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 2rem;
+    }
+
+    .graph-controls {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .control-btn {
+        width: 80%;
+        margin-bottom: 10px;
+    }
+
+    .chart-wrapper {
+        height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 15px;
+    }
+
+    .page-title {
+        font-size: 1.8rem;
+    }
+
+    .page-subtitle {
+        font-size: 1rem;
+    }
+
+    .control-btn {
+        font-size: 0.9rem;
+        padding: 10px 20px;
+    }
+
+    .chart-wrapper {
+        height: 250px;
+    }
+}
