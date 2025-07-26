@@ -41,6 +41,12 @@ body {
     border: none;
     cursor: pointer;
 }
+.logo-icon {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    gap: 10;
+}
 
 .btn:hover {
     background-color: #2980B9;

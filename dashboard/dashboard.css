@@ -52,6 +52,15 @@ body {
   margin-bottom: 30px;
   padding-bottom: 15px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+   display: flex;
+   align-items: center;
+    gap: 10px; 
+}
+
+.logo-icon {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
 }
 
 .sidebar-header h2 {
