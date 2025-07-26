@@ -1,0 +1,196 @@
+ /* CSS Variables for Colors */
+    :root {
+      --bg-primary: #fff5e6;
+      --bg-secondary: white;
+      --text-primary: #333;
+      --text-secondary: #777;
+      --text-tertiary: #555;
+      --border-color: #ccc;
+      --positive-color: green;
+      --negative-color: red;
+      --accent-color: #007bff;
+      --hover-bg: rgba(0, 0, 0, 0.1);
+      --positive-bg: rgba(0, 128, 0, 0.1);
+      --negative-bg: rgba(255, 0, 0, 0.1);
+      --shadow-light: rgba(0, 0, 0, 0.1);
+      --shadow-medium: rgba(0, 0, 0, 0.15);
+    }
+
+    /* Base Styles */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+    }
+    .container {
+      max-width: 100%;
+      margin: auto;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0;
+    }
+    .back-btn {
+      font-size: 20px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 50%;
+      transition: background-color 0.3s ease;
+    }
+    .back-btn:hover {
+      background-color: var(--hover-bg);
+    }
+    h1 {
+      font-size: 22px;
+      margin: 0;
+    }
+
+    /* Dropdowns */
+    .dropdowns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    select {
+      padding: 6px 12px;
+      font-size: 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      background-color: var(--bg-secondary);
+      flex: 1;
+      min-width: 120px;
+      cursor: pointer;
+    }
+    select:focus {
+      outline: none;
+      border-color: var(--accent-color);
+    }
+
+    /* Transaction Cards */
+    .transactions {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .transaction {
+      background: var(--bg-secondary);
+      border-radius: 15px;
+      padding: 12px 16px;
+      box-shadow: 0 1px 5px var(--shadow-light);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .transaction:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow-medium);
+    }
+    .transaction-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .transaction h3 {
+      margin: 0;
+      font-size: 16px;
+    }
+    .transaction p {
+      margin: 4px 0;
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+    .transaction-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+    .amount {
+      font-weight: bold;
+      font-size: 16px;
+      padding: 4px 8px;
+      border-radius: 6px;
+    }
+    .amount.positive {
+      color: var(--positive-color);
+      background-color: var(--positive-bg);
+    }
+    .amount.negative {
+      color: var(--negative-color);
+      background-color: var(--negative-bg);
+    }
+    .category-tag {
+      background-color: var(--accent-color);
+      color: var(--bg-secondary);
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .date-time {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      text-align: right;
+    }
+    .no-transactions {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-secondary);
+    }
+    .no-transactions h3 {
+      margin: 10px 0;
+      color: var(--text-tertiary);
+    }
+
+    /* Responsive Media Queries */
+    @media (min-width: 768px) {
+      .container {
+        max-width: 700px;
+        padding: 20px;
+      }
+      h1 {
+        font-size: 26px;
+      }
+      select {
+        font-size: 15px;
+        padding: 8px 14px;
+      }
+      .stat-card h3 {
+        font-size: 12px;
+      }
+      .stat-value {
+        font-size: 18px;
+      }
+      .transaction h3 {
+        font-size: 18px;
+      }
+      .transaction p {
+        font-size: 15px;
+      }
+      .amount {
+        font-size: 18px;
+      }
+    }
+    @media (min-width: 1024px) {
+      .container {
+        max-width: 900px;
+        padding: 30px;
+      }
+      h1 {
+        font-size: 28px;
+      }
+      .transaction {
+        padding: 16px 20px;
+      }
+    }
