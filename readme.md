@@ -1,4 +1,4 @@
-# Smart Expense Tracker
+# ExpenseMate
 
 A simple and powerful web app to **track**, **analyze**, and **export** your daily expenses and income.
 
