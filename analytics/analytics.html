@@ -4,17 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Analytics</title>
-     <!-- --- Char.js --- -->
+    <!-- --- Char.js --- -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-    <link rel="stylesheet" href="analytics.css">
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="analytics.css" />
   </head>
   <body>
     <div id="graphs" class="page">
       <div class="page-header">
-        <button id="back-btn" onclick="window.history.back()">Back</button>
+        <button id="back-btn" onclick="window.history.back()">
+          <i class="fas fa-arrow-left" style="margin-right: 5px"></i>Back
+        </button>
+        <button class="back-btn-small" onclick="window.history.back()">
+          <i class="fas fa-arrow-left"></i>
+        </button>
         <div class="header-title">
-        <h1 class="page-title">Analytics</h1>
-        <p class="page-subtitle">Visual insights into your financial data</p>
+          <h1 class="page-title">Analytics</h1>
+          <p class="page-subtitle">Visual insights into your financial data</p>
         </div>
       </div>
 
@@ -22,13 +31,22 @@
         <button
           class="control-btn active"
           onclick="showChart('expenses', this)"
-        data-chart-type="expenses">
+          data-chart-type="expenses"
+        >
           Expenses
         </button>
-        <button class="control-btn" onclick="showChart('income', this)" data-chart-type="income">
+        <button
+          class="control-btn"
+          onclick="showChart('income', this)"
+          data-chart-type="income"
+        >
           Income
         </button>
-        <button class="control-btn" onclick="showChart('trends', this)" data-chart-type="trends">
+        <button
+          class="control-btn"
+          onclick="showChart('trends', this)"
+          data-chart-type="trends"
+        >
           Trends
         </button>
       </div>
@@ -39,6 +57,6 @@
       </div>
     </div>
     <!-- <script src="../dashboard/dashboard.js"></script> -->
-     <script src="analytics.js"></script>
+    <script src="analytics.js"></script>
   </body>
 </html>

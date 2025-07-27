@@ -306,7 +306,7 @@ body {
 }
 
 .balance .stat-value {
-  color: var(--balance-text-color);
+  color: var(--primary-color);
 }
 
 .export-options {

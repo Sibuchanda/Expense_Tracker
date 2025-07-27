@@ -40,6 +40,23 @@ body {
     color: #FFFFFF;
     transform: translateY(-55%);
 }
+.back-btn-small {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: none;
+  background: #4A90E2;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px var(--shadow-light);
+  color: white;
+  font-size: 18px;
+  text-decoration: none;
+  display: none;
+}
 
 .page-header {
     display: flex;
@@ -148,11 +165,24 @@ canvas {
     }
 }
 
+@media (max-width: 570px) {
+   #back-btn{
+     padding: 8px 15px;
+     font-size: 13px;
+   }
+
+}
+
 @media (max-width: 480px) {
     body {
         padding: 15px;
     }
-
+        #back-btn{
+        display: none;
+    }
+    .back-btn-small{
+        display: block;
+    }
     .page-title {
         font-size: 1.8rem;
     }
